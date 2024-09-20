@@ -1,0 +1,83 @@
+.admin-home {
+    background: linear-gradient(to right, #ffffff, #97cd9f);
+    padding: 20px;
+    color: #333;
+}
+
+h1 {
+    color: #04701d;
+    text-align: center;
+    margin-bottom: 5%;
+    margin-top: 5%;
+}
+
+.section {
+    margin-bottom: 60px;
+    padding: 35px;
+    background: #e3e4e3;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+    color: #1504c9;
+    margin-bottom: 30px;
+}
+
+.input-field {
+    width: calc(80% - 22px);
+    padding: 10px;
+    margin-right: 10px;
+    border: 5px solid #015b25;
+    border-radius: 4px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+.btn-add {
+    background: #28a745;
+}
+
+.btn-delete {
+    background: #dc3545;
+}
+
+.btn-accept {
+    background: #007bff;
+}
+
+.btn-reject {
+    background: #dc0303;
+}
+
+.item-list {
+    list-style: none;
+    padding: 10;
+}
+
+.item-list li {
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.submission {
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
