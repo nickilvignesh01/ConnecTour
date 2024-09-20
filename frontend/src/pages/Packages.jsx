@@ -80,7 +80,7 @@ const Package = () => {
                   <p><strong>Price:</strong> {pkg.price}</p>
                   <p><strong>Highlights:</strong> {pkg.highlights}</p>
                 </div>
-                <button className="proceed-button">Know more</button>
+                <button className="proceed-button">Book now</button>
               </div>
             </div>
           ))}
