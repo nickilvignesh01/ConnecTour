@@ -22,28 +22,28 @@ mongoose.connect('mongodb+srv://vineesh:Vineesh%4010@tourconnect.c6ihfmz.mongodb
 
 // Define Place schema and model
 const PlaceSchema = new mongoose.Schema({
-    name: String,
-    description: String,
-    imageUrl: String, // URL for the main place image
+    name: { type: String, required: true },
+    description: { type: String, required: true },
+    imageUrl: { type: String, required: true },
     hotels: [{
         name: String,
         description: String,
         image: String,
-        price: String // Optional field for price
+        price: String
     }],
     foods: [{
         name: String,
         description: String,
         image: String,
-        price: String // Optional field for price
+        price: String
     }],
     guides: [{
         name: String,
         description: String,
         image: String,
-        price: String // Optional field for guide price
+        price: String
     }],
-    hiddenPlaces: [{ // Hidden places array
+    hiddenPlaces: [{
         name: String,
         description: String,
         image: String
@@ -61,10 +61,17 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model('User', UserSchema);
 
 // Hardcoded admin credentials
-const admin = {
-    email: 'vineesh10@gmail.com',
-    password: 'vineesh'
-};
+const admins = [
+    {
+        email: 'vineesh10@gmail.com',
+        password: 'vineesh'
+    },
+    {
+        email: 'vignesh@gmail.com',
+        password: 'vignesh'
+    }
+];
+
 
 // Route to fetch place details by placeId
 app.get('/api/places/:placeId', async (req, res) => {
@@ -82,37 +89,50 @@ app.get('/api/places/:placeId', async (req, res) => {
     }
 });
 
-
-// Route to add a new item (hotel, food, guide, or hidden place) to a place
-app.post('/api/add', async (req, res) => {
-    const { placeId, type, name, description, image, price } = req.body;
+// Route to add a new place
+app.post('/api/places', async (req, res) => {
+    const { name, description, imageUrl, hotels, foods, guides, hiddenPlaces } = req.body;
 
     try {
-        // Find the place by name (case-insensitive)
-        const place = await Place.findOne({ name: { $regex: placeId, $options: 'i' } });
-        if (!place) {
+        const newPlace = new Place({ name, description, imageUrl, hotels, foods, guides, hiddenPlaces });
+        await newPlace.save();
+        res.status(201).json({ message: 'Place created successfully', place: newPlace });
+    } catch (error) {
+        console.error('Error creating place:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+// Route to update a place
+app.put('/api/places/:placeId', async (req, res) => {
+    const placeId = req.params.placeId;
+    const updates = req.body;
+
+    try {
+        const updatedPlace = await Place.findOneAndUpdate({ name: { $regex: placeId, $options: 'i' } }, updates, { new: true });
+        if (!updatedPlace) {
             return res.status(404).json({ message: 'Place not found' });
         }
-
-        // Add the new item to the appropriate array based on type
-        if (type === 'hotel') {
-            place.hotels.push({ name, description, image, price });
-        } else if (type === 'food') {
-            place.foods.push({ name, description, image, price });
-        } else if (type === 'guide') {
-            place.guides.push({ name, description, image, price });
-        } else if (type === 'hiddenPlace') {
-            place.hiddenPlaces.push({ name, description, image });
-        } else {
-            return res.status(400).json({ message: 'Invalid type' });
-        }
-
-        // Save the updated place
-        await place.save();
-        res.status(201).json({ message: 'Item added successfully', place });
+        res.json({ message: 'Place updated successfully', place: updatedPlace });
     } catch (error) {
-        console.error('Error adding item:', error);
-        res.status(500).json({ message: 'An error occurred while adding the item' });
+        console.error('Error updating place:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+// Route to delete a place
+app.delete('/api/places/:placeId', async (req, res) => {
+    const placeId = req.params.placeId;
+
+    try {
+        const deletedPlace = await Place.findOneAndDelete({ name: { $regex: placeId, $options: 'i' } });
+        if (!deletedPlace) {
+            return res.status(404).json({ message: 'Place not found' });
+        }
+        res.json({ message: 'Place deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting place:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 

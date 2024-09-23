@@ -13,7 +13,7 @@ import Package from './pages/Packages';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import GoogleSignIn from './pages/GoogleSignIn';
-import Adminhome from './pages/AdminHome';
+import AdminHome from './pages/AdminHome';
 import Logout from './pages/Logout';
 import PlaceDetails from './pages/PlaceDetails'; // Dynamic place details page
 import AddForm from './pages/AddForm';
@@ -40,8 +40,9 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/googlesignin" element={<GoogleSignIn />} />
-            <Route path="/admin-dashboard" element={<Adminhome />} />
+            <Route path="/admin-dashboard" element={<AdminHome />} />
             <Route path="/logout" element={<Logout />} />
+            
           </Routes>
         </GoogleOAuthProvider>
         <Footer />

@@ -7,6 +7,7 @@ import '../Style.css';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,30 +17,35 @@ const Login = () => {
         }
     }, [navigate]);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        
-        axios.post('http://localhost:3001/login', { email, password })
-            .then(result => {
-                const { data } = result;
-                if (data.message === "Admin login successful") {
-                    alert("Admin login successful!");
-                    localStorage.setItem('isLoggedIn', 'true');
-                    localStorage.setItem('userRole', 'admin');
-                    navigate('/admin-dashboard');
-                } else if (data.message === "User login successful") {
-                    alert("Login successful!");
-                    localStorage.setItem('isLoggedIn', 'true');
-                    localStorage.setItem('userEmail', email);
-                    navigate('/');
-                } else {
-                    alert("Invalid credentials. Please try again.");
-                }
-            })
-            .catch(err => {
-                console.error('Login error:', err);
+        setLoading(true);
+
+        try {
+            const result = await axios.post('http://localhost:3001/login', { email, password });
+            const { data } = result;
+
+            if (data.message === "Admin login successful") {
+                alert("Admin login successful!");
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userRole', 'admin');
+                navigate('/admin-dashboard');
+            } else if (data.message === "User login successful") {
+                alert("Login successful!");
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userEmail', email);
+                navigate('/');
+            }
+        } catch (err) {
+            console.error('Login error:', err);
+            if (err.response && err.response.status === 400) {
+                alert(err.response.data.message || 'Invalid credentials. Please try again.');
+            } else {
                 alert('An error occurred during login. Please try again.');
-            });
+            }
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -71,10 +77,15 @@ const Login = () => {
                             required
                         />
                     </div>
-                    <button type="submit" className="submit-btn">Login</button>
+                    <button type="submit" className="submit-btn" disabled={loading}>
+                        {loading ? 'Logging in...' : 'Login'}
+                    </button>
                 </form>
 
-                <p className="register-prompt">Don't have an account? <Link to='/register' className="register-link">Register</Link></p>
+                <p className="register-prompt">
+                    Don't have an account? 
+                    <Link to='/register' className="register-link"> Register</Link>
+                </p>
             </div>
         </div>
     );

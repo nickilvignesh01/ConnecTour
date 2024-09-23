@@ -1,79 +1,75 @@
-import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import '../styles.css'; // Adjust the path as needed
+import React, { useState } from 'react';
 
 const AddForm = () => {
-  const { placeId } = useParams(); // Get placeId from URL
-  const navigate = useNavigate();
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [placeId, setPlaceId] = useState('');
+  const [type, setType] = useState(''); // Assuming you have different types
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
 
-  const [formData, setFormData] = useState({
-    type: '',
-    name: '',
-    description: '',
-    image: '',
-    price: ''
-  });
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('image', selectedFile); // if you're uploading a file
+    formData.append('placeId', placeId);
+    formData.append('type', type);
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('price', price);
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    fetch('http://localhost:3001/api/add', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...formData, placeId }), // Include placeId in the body
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Data added successfully:', data);
-      navigate(`/places/${placeId}`); // Navigate back to PlaceDetails after adding
-    })
-    .catch(error => console.error('Error adding data:', error));
+    try {
+      const response = await fetch('http://localhost:3001/api/add', {
+        method: 'POST',
+        body: formData,
+      });
+      if (response.ok) {
+        console.log('Item added successfully');
+        // Optionally reset the form or provide feedback to the user
+      } else {
+        console.error('Error adding item');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="add-form">
-      <select name="type" onChange={handleChange} required>
-        <option value="">Select Type</option>
-        <option value="hotel">Hotel</option>
-        <option value="food">Food</option>
-        <option value="guide">Guide</option>
-      </select>
-
+    <form onSubmit={handleSubmit}>
+      <input
+        type="file"
+        onChange={(e) => setSelectedFile(e.target.files[0])}
+      />
       <input
         type="text"
-        name="name"
+        value={placeId}
+        onChange={(e) => setPlaceId(e.target.value)}
+        placeholder="Place ID"
+      />
+      <input
+        type="text"
+        value={type}
+        onChange={(e) => setType(e.target.value)}
+        placeholder="Type"
+      />
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
         placeholder="Name"
-        onChange={handleChange}
-        required
       />
       <input
         type="text"
-        name="description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
         placeholder="Description"
-        onChange={handleChange}
-        required
       />
       <input
         type="text"
-        name="image"
-        placeholder="Image URL"
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="text"
-        name="price"
+        value={price}
+        onChange={(e) => setPrice(e.target.value)}
         placeholder="Price"
-        onChange={handleChange}
       />
-      
       <button type="submit">Submit</button>
     </form>
   );

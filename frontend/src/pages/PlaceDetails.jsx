@@ -10,21 +10,20 @@ const PlaceDetails = () => {
   useEffect(() => {
     console.log("Fetching data for placeId:", placeId);
     fetch(`http://localhost:3001/api/places/${placeId}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Fetched data:', data);
-            setPlaceData(data);
-        })
-        .catch(error => {
-            console.error('Error fetching place details:', error);
-        });
-}, [placeId]);
-
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Fetched data:', data);
+        setPlaceData(data);
+      })
+      .catch(error => {
+        console.error('Error fetching place details:', error);
+      });
+  }, [placeId]);
 
   const navigateToAddForm = () => {
     navigate(`/add-form/${placeId}`); // Pass placeId to AddForm
