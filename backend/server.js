@@ -3,77 +3,91 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
+const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
+const Experience = require('./models/Experience');
+const Place = require('./models/Place');
+
+// Initialize Express app
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-
-// Serve static files from the uploads directory
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve static files from 'uploads' directory
 
 // MongoDB connection
 mongoose.connect('mongodb+srv://vineesh:Vineesh%4010@tourconnect.c6ihfmz.mongodb.net/connectour?retryWrites=true&w=majority&appName=tourconnect', { 
     useNewUrlParser: true, 
     useUnifiedTopology: true 
 })
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('MongoDB connection error:', err));
+.then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('MongoDB connection error:', err));
 
-// Define Place schema and model
-const PlaceSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    description: { type: String, required: true },
-    imageUrl: { type: String, required: true },
-    hotels: [{
-        name: String,
-        description: String,
-        image: String,
-        price: String
-    }],
-    foods: [{
-        name: String,
-        description: String,
-        image: String,
-        price: String
-    }],
-    guides: [{
-        name: String,
-        description: String,
-        image: String,
-        price: String
-    }],
-    hiddenPlaces: [{
-        name: String,
-        description: String,
-        image: String
-    }]
+// Setup file storage with Multer for image uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        const uploadDir = './uploads/';
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir);
+        }
+        cb(null, uploadDir);
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
 });
 
-const Place = mongoose.model('Place', PlaceSchema);
+const upload = multer({ storage: storage });
 
-// Define User schema and model
+// Admin credentials (Hardcoded for demo)
+const admins = [
+    { email: 'vineesh10@gmail.com', password: 'vineesh' },
+    { email: 'vignesh@gmail.com', password: 'vignesh' }
+];
+
+// User schema and model
 const UserSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true }
 });
+
 const User = mongoose.model('User', UserSchema);
 
-// Hardcoded admin credentials
-const admins = [
-    {
-        email: 'vineesh10@gmail.com',
-        password: 'vineesh'
-    },
-    {
-        email: 'vignesh@gmail.com',
-        password: 'vignesh'
+// Routes
+
+// Fetch all experiences
+app.get('/api/experiences', async (req, res) => {
+    try {
+        const experiences = await Experience.find();
+        const baseUrl = req.protocol + '://' + req.get('host') + '/uploads/';
+        const experiencesWithFullUrl = experiences.map(experience => ({
+            ...experience._doc,
+            imageUrl: baseUrl + experience.imageUrl.split('/').pop(), // Combine base URL with the image filename
+        }));
+        res.json(experiencesWithFullUrl);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching experiences.' });
     }
-];
+});
 
+// Add a new experience
+app.post('/api/experiences', upload.single('image'), async (req, res) => {
+    try {
+        const { title, description, rating } = req.body;
+        const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`; // Full URL for the image
 
-// Route to fetch place details by placeId
+        const newExperience = new Experience({ title, description, rating, imageUrl });
+        await newExperience.save();
+        res.status(201).json({ message: 'Experience added successfully', experience: newExperience });
+    } catch (error) {
+        console.error('Error adding experience:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+// Fetch place details by placeId
 app.get('/api/places/:placeId', async (req, res) => {
     const placeId = req.params.placeId;
 
@@ -89,7 +103,7 @@ app.get('/api/places/:placeId', async (req, res) => {
     }
 });
 
-// Route to add a new place
+// Add a new place
 app.post('/api/places', async (req, res) => {
     const { name, description, imageUrl, hotels, foods, guides, hiddenPlaces } = req.body;
 
@@ -103,7 +117,7 @@ app.post('/api/places', async (req, res) => {
     }
 });
 
-// Route to update a place
+// Update a place
 app.put('/api/places/:placeId', async (req, res) => {
     const placeId = req.params.placeId;
     const updates = req.body;
@@ -120,7 +134,7 @@ app.put('/api/places/:placeId', async (req, res) => {
     }
 });
 
-// Route to delete a place
+// Delete a place
 app.delete('/api/places/:placeId', async (req, res) => {
     const placeId = req.params.placeId;
 
@@ -164,8 +178,8 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // Admin login check
-        if (email === admin.email && password === admin.password) {
+        const admin = admins.find(admin => admin.email === email && admin.password === password);
+        if (admin) {
             return res.json({ message: 'Admin login successful', role: 'admin' });
         }
 
@@ -186,6 +200,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
+// Start the server
 app.listen(3001, () => {
     console.log('Server running on http://localhost:3001');
 });

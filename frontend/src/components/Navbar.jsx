@@ -52,52 +52,28 @@ const Navbar = () => {
                                 Places
                             </Link>
                         </li>
+
+
                         <li className="nav-item">
                             <Link className="nav-link" to="/gallery">
                                 Gallery
                             </Link>
                         </li>
                         <li className="nav-item">
+                            <Link className="nav-link" to="/maps">
+                                map
+                            </Link>
+                        </li>
+
+                        <li className="nav-item">
                             <Link className="nav-link" to="/about">
                                 About
                             </Link>
                         </li>
-                        <li className="nav-item dropdown">
-                            <Link
-                                className="nav-link dropdown-toggle"
-                                to="/experiences"
-                                id="navbarDropdown"
-                                role="button"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                            >
-                                Experience
+                        <li className="nav-item">
+                            <Link className="nav-link" aria-current="page" to="/Diaries">
+                            Diaries
                             </Link>
-                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <Link className="dropdown-item" to="/spiritual">
-                                        Spiritual
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="dropdown-item" to="/adventure">
-                                        Adventure
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="dropdown-item" to="/hills">
-                                        Hills
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="dropdown-item" to="/beaches">
-                                        Beaches
-                                    </Link>
-                                </li>
-                                <li>
-                                    <hr className="dropdown-divider" />
-                                </li>
-                            </ul>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/contact">

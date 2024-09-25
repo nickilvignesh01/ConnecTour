@@ -8,11 +8,14 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Gallery from './pages/Gallery';
 import Navbar from './components/Navbar';
+import Maps from "./components/Maps"; 
 import Footer from './components/Footer';
 import Package from './pages/Packages';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import GoogleSignIn from './pages/GoogleSignIn';
+import Diaries from './components/Diaries'; // Correct path to Diaries
+import WriteExperience from './pages/WriteExperience'; // Import the new component
 import AdminHome from './pages/AdminHome';
 import Logout from './pages/Logout';
 import PlaceDetails from './pages/PlaceDetails'; // Dynamic place details page
@@ -33,16 +36,18 @@ function App() {
             <Route path="/places" element={<Places />} />
             <Route path="/add-form/:placeId" element={<AddForm />} />
             <Route path="/places/:placeId" element={<PlaceDetails />} /> {/* Dynamic route for each place */}
+            <Route path="/diaries" element={<Diaries />} />  {/* Diaries route */}
+            <Route path="/write-experience" element={<WriteExperience />} />  {/* New route for WriteExperience */}
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/packages" element={<Package />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/maps" element={<Maps />} />
             <Route path="/googlesignin" element={<GoogleSignIn />} />
             <Route path="/admin-dashboard" element={<AdminHome />} />
             <Route path="/logout" element={<Logout />} />
-            
           </Routes>
         </GoogleOAuthProvider>
         <Footer />

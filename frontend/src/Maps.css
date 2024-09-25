@@ -1,0 +1,44 @@
+/* Background and container styles */
+.maps-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+    height: 100vh;
+    color: #fff;
+}
+
+/* Title styles with catchy words */
+.maps-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #180374;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Map iframe container with shadow and hover effect */
+.iframe-container {
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    width: 180%;
+    max-width: 900px; /* Increased the map size */
+    transition: transform 0.3s ease-in-out;
+}
+
+.iframe-container:hover {
+    transform: scale(1.05);
+}
+
+/* Map iframe size */
+iframe {
+    width: 100%;
+    height: 600px; /* Increased the height */
+    border: none;
+    border-radius: 10px;
+}

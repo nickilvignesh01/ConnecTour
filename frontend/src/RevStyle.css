@@ -1,0 +1,210 @@
+
+
+.diaries-title {
+    text-align: center;
+    font-size: 3rem; /* Increased font size */
+    margin-bottom: 3%;
+    margin-top: 3%;
+    color: #ffffff; /* Darker shade for better readability */
+    font-family: 'Lobster', cursive; /* Use Lobster font family */
+    letter-spacing: 1px; /* Added letter spacing */
+}
+
+.experience-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.experience-item {
+    margin-bottom: 30px; /* More space between items */
+}
+
+.experience-box {
+    display: flex;
+    align-items: center;
+    background: #ffffff; /* Clean white background */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s; /* Added box-shadow transition */
+    width: 80%; /* Ensure each experience box is also 80% */
+    margin: auto; /* Center the experience box */
+}
+
+.experience-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
+}
+
+.experience-image {
+    width: 200px; /* Increased width */
+    height: 150px; /* Increased height */
+    object-fit: cover;
+    border-radius: 15px 0 0 15px; /* Rounded corners on left */
+}
+
+.experience-details {
+    padding: 20px; /* Increased padding */
+    flex: 1;
+}
+
+.experience-title {
+    font-size: 1.8rem; /* Slightly larger */
+    margin: 10px 0;
+    color: #2980b9; /* Bright blue */
+    font-family: 'Lobster', cursive; /* Use Lobster font family */
+    transition: color 0.3s; /* Transition for title color */
+}
+
+.experience-title:hover {
+    color: #1f6391; /* Darker blue on hover */
+}
+
+.experience-content {
+    font-size: 1.2rem; /* Increased for readability */
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.experience-rating {
+    font-size: 1.2rem;
+    color: #ff4102; /* Gold color for rating */
+}
+
+.submit-experience-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    margin-top: 25px;
+    background-color: #2980b9;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.5rem; /* Increased font size */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Added transform on hover */
+}
+
+.submit-experience-btn:hover {
+    background-color: #1f6391; /* Darker blue on hover */
+    transform: translateY(-2px); /* Lift effect on button hover */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .experience-image {
+        width: 120px; /* Adjusted for smaller screens */
+        height: 90px;
+    }
+
+    .experience-title {
+        font-size: 1.5rem; /* Adjusted for smaller screens */
+    }
+
+    .experience-rating {
+        font-size: 1rem; /* Adjusted for smaller screens */
+    }
+
+    .submit-experience-btn {
+        font-size: 1.2rem; /* Adjusted for smaller screens */
+    }
+}
+
+
+/*for writeexperience page*/
+.write-experience-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #d0f8df;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.write-experience-container:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); /* More pronounced shadow on hover */
+}
+
+.write-experience-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #044485;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+.experience-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 1.5rem;
+    color: #026d14; /* Darker shade for labels */
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #bdc3c7;
+    border-radius: 15px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #2980b9; /* Highlight border on focus */
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical; /* Allow vertical resizing */
+    min-height: 150px; /* Minimum height for the textarea */
+}
+
+.submit-btn {
+    padding: 15px;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #2980b9;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #1f913f; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.submit-btn:disabled {
+    background-color: #95a5a6; /* Gray color when disabled */
+    cursor: not-allowed; /* Change cursor when disabled */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .write-experience-title {
+        font-size: 2rem; /* Adjust title size for smaller screens */
+    }
+
+    .submit-btn {
+        font-size: 1rem; /* Adjust button size for smaller screens */
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 0.9rem; /* Adjust input size for smaller screens */
+    }
+}
