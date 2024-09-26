@@ -1,3 +1,4 @@
+// server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -7,8 +8,10 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
+// Models
 const Experience = require('./models/Experience');
-const Place = require('./models/Place');
+const Place = require('./models/Places');
+const User = require('./models/User'); // Assuming User model is in models folder
 
 // Initialize Express app
 const app = express();
@@ -46,15 +49,6 @@ const admins = [
     { email: 'vignesh@gmail.com', password: 'vignesh' }
 ];
 
-// User schema and model
-const UserSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
-});
-
-const User = mongoose.model('User', UserSchema);
-
 // Routes
 
 // Fetch all experiences
@@ -64,10 +58,11 @@ app.get('/api/experiences', async (req, res) => {
         const baseUrl = req.protocol + '://' + req.get('host') + '/uploads/';
         const experiencesWithFullUrl = experiences.map(experience => ({
             ...experience._doc,
-            imageUrl: baseUrl + experience.imageUrl.split('/').pop(), // Combine base URL with the image filename
+            imageUrl: baseUrl + experience.imageUrl.split('/').pop(),
         }));
         res.json(experiencesWithFullUrl);
     } catch (error) {
+        console.error('Error fetching experiences:', error);
         res.status(500).json({ message: 'Error fetching experiences.' });
     }
 });
@@ -75,85 +70,47 @@ app.get('/api/experiences', async (req, res) => {
 // Add a new experience
 app.post('/api/experiences', upload.single('image'), async (req, res) => {
     try {
-        const { title, description, rating, email } = req.body; // Include email in the request
-        const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`; // Full URL for the image
+        const { title, description, rating, email } = req.body;
+
+        const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
 
         // Check if required fields are present
         if (!title || !description || !rating || !email) {
             return res.status(400).json({ message: 'All fields are required.' });
         }
 
-        // Create the new experience including email
+        // Create the new experience
         const newExperience = new Experience({ title, description, rating, imageUrl, email });
         await newExperience.save();
         res.status(201).json({ message: 'Experience added successfully', experience: newExperience });
     } catch (error) {
         console.error('Error adding experience:', error);
-        res.status(500).json({ message: 'Internal Server Error', error: error.message }); // Send back the error message
+        res.status(500).json({ message: 'Internal Server Error', error: error.message });
     }
 });
 
-
-// Fetch place details by placeId
-app.get('/api/places/:placeId', async (req, res) => {
-    const placeId = req.params.placeId;
-
+// Fetch all places
+app.get('/api/places', async (req, res) => {
     try {
-        const place = await Place.findOne({ name: { $regex: placeId, $options: 'i' } });
+        const places = await Place.find();
+        res.json(places);
+    } catch (error) {
+        console.error('Error fetching places:', error);
+        res.status(500).json({ message: 'Error fetching places' });
+    }
+});
+
+// Fetch a place by ID
+app.get('/api/places/:id', async (req, res) => {
+    try {
+        const place = await Place.findById(req.params.id);
         if (!place) {
-            return res.status(404).json({ error: 'Place not found' });
+            return res.status(404).json({ message: 'Place not found' });
         }
         res.json(place);
     } catch (error) {
         console.error('Error fetching place:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-// Add a new place
-app.post('/api/places', async (req, res) => {
-    const { name, description, imageUrl, hotels, foods, guides, hiddenPlaces } = req.body;
-
-    try {
-        const newPlace = new Place({ name, description, imageUrl, hotels, foods, guides, hiddenPlaces });
-        await newPlace.save();
-        res.status(201).json({ message: 'Place created successfully', place: newPlace });
-    } catch (error) {
-        console.error('Error creating place:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-});
-
-// Update a place
-app.put('/api/places/:placeId', async (req, res) => {
-    const placeId = req.params.placeId;
-    const updates = req.body;
-
-    try {
-        const updatedPlace = await Place.findOneAndUpdate({ name: { $regex: placeId, $options: 'i' } }, updates, { new: true });
-        if (!updatedPlace) {
-            return res.status(404).json({ message: 'Place not found' });
-        }
-        res.json({ message: 'Place updated successfully', place: updatedPlace });
-    } catch (error) {
-        console.error('Error updating place:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-});
-
-// Delete a place
-app.delete('/api/places/:placeId', async (req, res) => {
-    const placeId = req.params.placeId;
-
-    try {
-        const deletedPlace = await Place.findOneAndDelete({ name: { $regex: placeId, $options: 'i' } });
-        if (!deletedPlace) {
-            return res.status(404).json({ message: 'Place not found' });
-        }
-        res.json({ message: 'Place deleted successfully' });
-    } catch (error) {
-        console.error('Error deleting place:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
+        res.status(500).json({ message: 'Server error' });
     }
 });
 
@@ -180,17 +137,18 @@ app.post('/register', async (req, res) => {
     }
 });
 
-// In your Express server
+// Fetch user by email
 app.get('/api/users/:email', async (req, res) => {
     const { email } = req.params;
     try {
-        const user = await User.findOne({ email: email });
+        const user = await User.findOne({ email });
         if (user) {
             res.json(user);
         } else {
             res.status(404).json({ message: 'User not found' });
         }
     } catch (error) {
+        console.error('Error fetching user:', error);
         res.status(500).json({ message: 'Error fetching user details' });
     }
 });
@@ -223,6 +181,7 @@ app.post('/login', async (req, res) => {
 });
 
 // Start the server
-app.listen(3001, () => {
-    console.log('Server running on http://localhost:3001');
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 });

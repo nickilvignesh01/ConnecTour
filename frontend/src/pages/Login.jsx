@@ -29,7 +29,7 @@ const Login = () => {
                 alert("Admin login successful!");
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('userRole', 'admin');
-                navigate('/admin-dashboard');
+                navigate('/admin');
             } else if (data.message === "User login successful") {
                 alert("Login successful!");
                 localStorage.setItem('isLoggedIn', 'true');
