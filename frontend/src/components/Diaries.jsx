@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../RevStyle.css';
 
 const Diaries = () => {
     const [experiences, setExperiences] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchExperiences = async () => {
@@ -18,6 +19,19 @@ const Diaries = () => {
         fetchExperiences();
     }, []);
 
+    const handleShareExperience = () => {
+        // Check if user is logged in by checking localStorage for 'isLoggedIn' key
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn === 'true') {
+            // User is logged in, navigate to the WriteExperience page
+            navigate('/write-experience');
+        } else {
+            // User is not logged in, navigate to the login page
+            navigate('/login');
+        }
+    };
+    
+    
     return (
         <div className="diaries-container">
             <h2 className="diaries-title">Traveler Diaries</h2>
@@ -30,7 +44,7 @@ const Diaries = () => {
                                 <div className="experience-details">
                                     <h3 className="experience-title">{experience.title}</h3>
                                     <p className="experience-content">{experience.description}</p>
-                                    <p className="experience-rating">Rating: {experience.rating}/5</p>
+                                    <p className="experience-rating">Rating: {experience.rating}/10</p>
                                 </div>
                             </div>
                         </li>
@@ -42,22 +56,22 @@ const Diaries = () => {
             <div
                 className="background-image"
                 style={{
-                    backgroundImage: "url('/images/ooty-1655457424_bca80f81e8391ebdaaca.webp')",
+                    backgroundImage: "url('/images/GEN11.webp')",
                     backgroundPosition: "right bottom",
                     backgroundRepeat: "no-repeat",
                     backgroundAttachment: "fixed",
-                    height: "100%",
+                    height: "250%",
                     position: "absolute",
                     top: 0,
                     left: 0,
-                    width: "100%",
+                    width: "150%",
                     filter: "blur(3px)",
                     zIndex: -1,
                 }}
             ></div>
-            <Link to="/write-experience">
-                <button className="submit-experience-btn">Share Your Experience</button>
-            </Link>
+            <button className="submit-experience-btn" onClick={handleShareExperience}>
+                Share Your Experience
+            </button>
         </div>
     );
 };

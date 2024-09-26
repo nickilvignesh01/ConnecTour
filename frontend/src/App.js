@@ -14,11 +14,11 @@ import Package from './pages/Packages';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import GoogleSignIn from './pages/GoogleSignIn';
-import Diaries from './components/Diaries'; // Correct path to Diaries
-import WriteExperience from './pages/WriteExperience'; // Import the new component
+import Diaries from './components/Diaries';
+import WriteExperience from './components/WriteExperience';
 import AdminHome from './pages/AdminHome';
 import Logout from './pages/Logout';
-import PlaceDetails from './pages/PlaceDetails'; // Dynamic place details page
+import PlaceDetails from './pages/PlaceDetails';
 import AddForm from './pages/AddForm';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
@@ -35,9 +35,9 @@ function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/places" element={<Places />} />
             <Route path="/add-form/:placeId" element={<AddForm />} />
-            <Route path="/places/:placeId" element={<PlaceDetails />} /> {/* Dynamic route for each place */}
-            <Route path="/diaries" element={<Diaries />} />  {/* Diaries route */}
-            <Route path="/write-experience" element={<WriteExperience />} />  {/* New route for WriteExperience */}
+            <Route path="/places/:placeId" element={<PlaceDetails />} /> 
+            <Route path="/diaries" element={<Diaries />} />  
+            <Route path="/write-experience" element={<WriteExperience />} />  
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/gallery" element={<Gallery />} />

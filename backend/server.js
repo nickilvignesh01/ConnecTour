@@ -75,17 +75,24 @@ app.get('/api/experiences', async (req, res) => {
 // Add a new experience
 app.post('/api/experiences', upload.single('image'), async (req, res) => {
     try {
-        const { title, description, rating } = req.body;
+        const { title, description, rating, email } = req.body; // Include email in the request
         const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`; // Full URL for the image
 
-        const newExperience = new Experience({ title, description, rating, imageUrl });
+        // Check if required fields are present
+        if (!title || !description || !rating || !email) {
+            return res.status(400).json({ message: 'All fields are required.' });
+        }
+
+        // Create the new experience including email
+        const newExperience = new Experience({ title, description, rating, imageUrl, email });
         await newExperience.save();
         res.status(201).json({ message: 'Experience added successfully', experience: newExperience });
     } catch (error) {
         console.error('Error adding experience:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
+        res.status(500).json({ message: 'Internal Server Error', error: error.message }); // Send back the error message
     }
 });
+
 
 // Fetch place details by placeId
 app.get('/api/places/:placeId', async (req, res) => {
@@ -170,6 +177,21 @@ app.post('/register', async (req, res) => {
     } catch (error) {
         console.error('Registration error:', error);
         res.status(500).json({ message: 'Registration failed. Please try again.' });
+    }
+});
+
+// In your Express server
+app.get('/api/users/:email', async (req, res) => {
+    const { email } = req.params;
+    try {
+        const user = await User.findOne({ email: email });
+        if (user) {
+            res.json(user);
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching user details' });
     }
 });
 

@@ -12,6 +12,23 @@ const Maps = () => {
                     height="600" /* Increased width and height */
                     title="Google Map"
                 ></iframe>
+                 <div
+                 className="background-image"
+    style={{
+        backgroundImage: "url('/images/rameswaram-1657003415_923d56f8f2fe1ac0f94a.webp')",
+        backgroundPosition: "right bottom",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        height: "150%",
+        position: "absolute",
+        top: 0,
+        left: 0,
+        opacity: 0.6, // Set opacity as a decimal value between 0 and 1
+        width: "100%",
+        filter: "blur(3px)",
+        zIndex: -1,
+    }}
+            ></div>
             </div>
         </div>
     );
