@@ -16,11 +16,14 @@ import Login from './pages/Login';
 import GoogleSignIn from './pages/GoogleSignIn';
 import Diaries from './components/Diaries';
 import Places from './components/Places';
+import Booking from './components/Booking';
 import WriteExperience from './components/WriteExperience';
 import AdminHome from './components/AdminHome'; 
 import Logout from './pages/Logout';
 import PlaceDetails from './components/PlaceDetails'; 
 import AddForm from './components/AddForm'; 
+import PlaceDescription from './components/PlaceDescription';
+
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const clientId = '178167574374-21n9nm6rv8qcbaoobtqdbum29c9ajpba.apps.googleusercontent.com'; 
@@ -43,6 +46,8 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/packages" element={<Package />} />
+            <Route path="/place/:packageName" element={<PlaceDescription />} />
+            <Route path="/booking" element={<Booking />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/maps" element={<Maps />} />

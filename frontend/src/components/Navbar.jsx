@@ -1,33 +1,31 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SearchBar from './SearchBar'; // Ensure this path is correct
-import '../Style.css'; // Ensure this path is correct
+import SearchBar from './SearchBar'; 
+import '../Style.css'; 
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; // Check login state
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const userRole = localStorage.getItem('userRole'); // Get user role
 
     const handleSignInClick = () => {
         navigate('/login');
     };
 
     const handleLogoutClick = () => {
-        // Clear user-related information from localStorage
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        localStorage.setItem('isLoggedIn', 'false'); // Update login state
+        localStorage.setItem('isLoggedIn', 'false');
+        localStorage.removeItem('userRole'); // Remove user role on logout
 
-        // Redirect to login page
         navigate('/login');
     };
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/home">
-                    ConnecTour
-                </Link>
+                <Link className="navbar-brand" to="/home">ConnecTour</Link>
                 <button
                     className="navbar-toggler"
                     type="button"
@@ -43,67 +41,44 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className="nav-link" aria-current="page" to="/home">
-                                Home
-                            </Link>
+                            <Link className="nav-link" aria-current="page" to="/home">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/places">
-                                Places
-                            </Link>
-                        </li>
-
-
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/gallery">
-                                Gallery
-                            </Link>
+                            <Link className="nav-link" to="/places">Places</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/maps">
-                                map
-                            </Link>
-                        </li>
-
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/about">
-                                About
-                            </Link>
+                            <Link className="nav-link" to="/gallery">Gallery</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" aria-current="page" to="/Diaries">
-                            Diaries
-                            </Link>
+                            <Link className="nav-link" to="/maps">Map</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/contact">
-                                Contact Us
-                            </Link>
+                            <Link className="nav-link" to="/about">About</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/packages">
-                                Packages
-                            </Link>
+                            <Link className="nav-link" to="/Diaries">Diaries</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/contact">Contact Us</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/packages">Packages</Link>
+                        </li>
+                        {/* Show Admin link only if user is an admin */}
+                        {userRole === 'admin' && (
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/admin">Admin Panel</Link>
+                            </li>
+                        )}
                     </ul>
                     <div className="d-flex align-items-center ms-lg-3">
                         <SearchBar />
                         {!isLoggedIn ? (
-                            <>
-                                <button
-                                    className="btn btn-outline-light ms-2"
-                                    type="button"
-                                    onClick={handleSignInClick}
-                                >
-                                    SignIn
-                                </button>
-                            </>
+                            <button className="btn btn-outline-light ms-2" type="button" onClick={handleSignInClick}>
+                                Sign In
+                            </button>
                         ) : (
-                            <button
-                                className="btn btn-outline-light ms-2"
-                                type="button"
-                                onClick={handleLogoutClick}
-                            >
+                            <button className="btn btn-outline-light ms-2" type="button" onClick={handleLogoutClick}>
                                 Logout
                             </button>
                         )}

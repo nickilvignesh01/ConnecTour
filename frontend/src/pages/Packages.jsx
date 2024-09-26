@@ -1,5 +1,6 @@
 // src/components/Package.jsx
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../Style.css'; // Ensure this file includes the updated CSS
 
 const packages = [
@@ -60,6 +61,16 @@ const packages = [
 ];
 
 const Package = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+ const handleBookNow = (packageName) => {
+    navigate(`/booking?package=${encodeURIComponent(packageName)}`); // Navigate to the booking page with the package name
+  };
+
+  /*const handleBookNow = (packageName) => {
+    navigate(`/place/${encodeURIComponent(packageName)}`); // Navigate to place description page
+  };*/
+
   return (
     <div className="package-page">
       <header className="package-header">
@@ -80,7 +91,7 @@ const Package = () => {
                   <p><strong>Price:</strong> {pkg.price}</p>
                   <p><strong>Highlights:</strong> {pkg.highlights}</p>
                 </div>
-                <button className="proceed-button">Book now</button>
+                <button className="proceed-button" onClick={() => handleBookNow(pkg.name)}>Book Now</button>
               </div>
             </div>
           ))}

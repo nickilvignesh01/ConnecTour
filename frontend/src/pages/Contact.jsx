@@ -24,9 +24,14 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/api/contact', formData);
-      setResponseMessage(response.data.message);
+      // Send data to the server
+      const response = await axios.post('http://localhost:3001/contact', formData);
+      console.log('Server response:', response.data);
+      
+      // Update responseMessage based on the response from the server
+      setResponseMessage(response.data.message || 'Message sent successfully');
     } catch (error) {
+      console.error('Error sending message:', error);
       setResponseMessage('Failed to send message. Please try again.');
     }
   };
@@ -50,6 +55,7 @@ const Contact = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
+                  required
                 />
                 <input
                   type="email"
@@ -58,6 +64,7 @@ const Contact = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  required
                 />
                 <textarea
                   className="form-control"
@@ -65,12 +72,13 @@ const Contact = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
+                  required
                 />
                 <button className="btn signin" style={{ color: "#fff9f9" }} type="submit">
                   Send Message
                 </button>
               </form>
-              {responseMessage && <p>{responseMessage}</p>}
+              {responseMessage && <p style={{ color: "#000" }}>{responseMessage}</p>}
             </div>
           </div>
         </div>

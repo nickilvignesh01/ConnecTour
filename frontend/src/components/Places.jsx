@@ -39,8 +39,8 @@ const MyStyledDiv = () => {
                 textAlign: 'center',
                 zIndex: 1
             }}>
-                CONNECTOUR
-                <h2 style={{ fontSize: '1.5rem', marginTop: '10px', color: 'white' }}>
+                DESTINATIONS
+                <h2 style={{ fontSize: '1.5rem', marginTop: '10px' }}>
                     "Empowering Travel - Embracing Diversity"
                 </h2>
             </div>

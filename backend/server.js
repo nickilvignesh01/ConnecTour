@@ -13,6 +13,7 @@ const Experience = require('./models/Experience');
 const Place = require('./models/Places');
 const User = require('./models/User'); // Assuming User model is in models folder
 
+
 // Initialize Express app
 const app = express();
 app.use(cors());
@@ -179,6 +180,14 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ message: 'An error occurred during login. Please try again.' });
     }
 });
+
+const contactRoutes = require('./routes/contactRoutes');
+app.use('/contact', contactRoutes);  
+
+
+const bookingRoutes = require('./routes/bookingRoutes');
+app.use('/api/bookings', bookingRoutes);
+
 
 // Start the server
 const PORT = process.env.PORT || 3001;
