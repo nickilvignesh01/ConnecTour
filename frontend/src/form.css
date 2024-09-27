@@ -1,0 +1,55 @@
+/* form.css */
+.bookings-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f9fc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .bookings-heading {
+    text-align: center;
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .bookings-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 1.1em;
+    font-family: 'Arial', sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .bookings-table th,
+  .bookings-table td {
+    padding: 12px 15px;
+    text-align: left;
+  }
+  
+  .bookings-table th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .bookings-table tr {
+    border-bottom: 1px solid #dddddd;
+  }
+  
+  .bookings-table tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+  
+  .bookings-table tr:last-of-type {
+    border-bottom: 2px solid #4CAF50;
+  }
+  
+  .bookings-error {
+    color: red;
+    text-align: center;
+  }
+  

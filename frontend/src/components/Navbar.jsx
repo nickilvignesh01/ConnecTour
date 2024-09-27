@@ -46,23 +46,26 @@ const Navbar = () => {
                         <li className="nav-item">
                             <Link className="nav-link" to="/places">Places</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/gallery">Gallery</Link>
-                        </li>
+                       
                         <li className="nav-item">
                             <Link className="nav-link" to="/maps">Map</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/about">About</Link>
-                        </li>
+                        
                         <li className="nav-item">
                             <Link className="nav-link" to="/Diaries">Diaries</Link>
+                        </li>
+                        
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/packages">Packages</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/gallery">Gallery</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/contact">Contact Us</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/packages">Packages</Link>
+                            <Link className="nav-link" to="/about">About</Link>
                         </li>
                         {/* Show Admin link only if user is an admin */}
                         {userRole === 'admin' && (

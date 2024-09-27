@@ -53,9 +53,9 @@ const Footer = () => {
           </a>
         </p>
         <p>
-          <a href="#" className="text-light">
+          <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" className="text-light">
             <i className="fa d-inline mr-3 text-muted fa-envelope-o" />
-            info@ConnecTour.com
+            connectour10@gmail.com
           </a>
         </p>
         <p>

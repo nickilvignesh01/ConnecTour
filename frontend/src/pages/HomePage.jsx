@@ -11,9 +11,9 @@ const HomePage = () => {
         <>
             
             <Front />
-            <Experiences />
-            <Popular />
             
+            <Popular />
+            <Experiences />
             <Video />
            
             

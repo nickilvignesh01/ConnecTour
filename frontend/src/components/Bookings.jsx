@@ -1,6 +1,7 @@
 // components/ViewBookings.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../form.css'; // Ensure the correct path is set
 
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -27,13 +28,13 @@ const Bookings = () => {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p className="bookings-error">{error}</p>;
   }
 
   return (
-    <div>
-      <h2>User Bookings</h2>
-      <table>
+    <div className="bookings-container">
+      <h2 className="bookings-heading">User Bookings</h2>
+      <table className="bookings-table">
         <thead>
           <tr>
             <th>Name</th>

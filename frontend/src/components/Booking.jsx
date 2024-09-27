@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const Booking = () => {
@@ -14,6 +14,19 @@ const Booking = () => {
   });
 
   const [message, setMessage] = useState('');
+
+  // Populate form fields from local storage on component mount
+  useEffect(() => {
+    const storedName = localStorage.getItem('userName'); // Use 'userName' key
+    const storedEmail = localStorage.getItem('userEmail'); // Use 'userEmail' key
+    if (storedName && storedEmail) {
+      setFormData((prevData) => ({
+        ...prevData,
+        name: storedName,
+        email: storedEmail,
+      }));
+    }
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -118,14 +131,15 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     height: '100vh',
-    backgroundColor: '#e1e8f0', // Soft blue-grey for a relaxing vacation vibe
+    backgroundColor: '#2C5F2D', // Dark green
+    padding: '20px',
   },
   card: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#FFFBE6',
     padding: '40px',
     borderRadius: '10px',
     boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
-    width: '450px',
+    width: '750px', // Increased width for more content space
     textAlign: 'center',
   },
   title: {
@@ -137,8 +151,9 @@ const styles = {
   subtitle: {
     marginBottom: '25px',
     fontSize: '16px',
-    color: '#555',
-    lineHeight: '1.5',
+    color: '#664343',
+    lineHeight: '1.8',
+    textAlign: 'justify',
   },
   form: {
     display: 'flex',
@@ -164,9 +179,6 @@ const styles = {
     boxSizing: 'border-box',
     transition: 'border 0.3s',
   },
-  inputFocus: {
-    borderColor: '#007bff',
-  },
   submitButton: {
     padding: '12px 0',
     backgroundColor: '#007bff', // Blue button for a calming effect
@@ -176,9 +188,6 @@ const styles = {
     cursor: 'pointer',
     fontSize: '16px',
     transition: 'background-color 0.3s ease',
-  },
-  submitButtonHover: {
-    backgroundColor: '#0056b3',
   },
   message: {
     marginTop: '20px',

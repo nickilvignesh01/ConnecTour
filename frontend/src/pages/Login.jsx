@@ -1,4 +1,3 @@
-// Login.jsx
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -25,15 +24,18 @@ const Login = () => {
             const result = await axios.post('http://localhost:3001/login', { email, password });
             const { data } = result;
 
+            // Assuming the API returns user's name along with the login success message
             if (data.message === "Admin login successful") {
                 alert("Admin login successful!");
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('userRole', 'admin');
+                localStorage.setItem('userEmail', email); // Save email for admin
                 navigate('/admin');
             } else if (data.message === "User login successful") {
                 alert("Login successful!");
                 localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('userEmail', email);
+                localStorage.setItem('userEmail', email); // Save user's email
+                localStorage.setItem('userName', data.userName); // Save user's name if returned
                 navigate('/');
             }
         } catch (err) {

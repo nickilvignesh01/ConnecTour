@@ -37,7 +37,7 @@ const Views = () => {
         Explore breathtaking destinations and immerse yourself in unforgettable experiences. From serene landscapes to vibrant cityscapes, your next adventure awaits!
       </p>
       <a
-        href="/places"
+        href="/packages"
         className="btn btn-lg btn-light"
         style={{
           backgroundColor: "#ffffff",

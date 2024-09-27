@@ -57,7 +57,7 @@ const SearchBar = () => {
         <div className="dropdown-menu show">
           {filteredPlaces.length > 0 ? (
             filteredPlaces.map((place, index) => (
-              <Link key={index} className="dropdown-item" to={`/places/${place.toLowerCase()}`}>
+              <Link key={index} className="dropdown-item" to={`/places`}>
                 {place}
               </Link>
             ))

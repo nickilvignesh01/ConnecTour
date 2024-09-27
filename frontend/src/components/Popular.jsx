@@ -10,6 +10,27 @@ const Popular = () => {
             <div className="container my-5">
                 <h1 className="text-center mb-5" style={{ color: "#006400" }}>Popular</h1>
                 <div className="row">
+                <div className="col-lg-4 col-md-6 mb-4">
+                        <div className="card">
+                            <img
+                                src="/images/ooty-1655457424_bca80f81e8391ebdaaca.webp"
+                                className="card-img-top"
+                                alt="Ooty"
+                            />
+                            <div className="card-body">
+                                <h5 className="card-title">Ooty</h5>
+                                <p className="card-text">
+                                    Experience the beauty of Ooty's hills and tea estates.
+                                </p>
+                                <a
+                                    href="/place-details/605c72ef1b7e3b4c0e8b4567"
+                                    className="btn btn-primary"
+                                >
+                                    Read more
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     <div className="col-lg-4 col-md-6 mb-4">
                         <div className="card">
                             <img
@@ -20,7 +41,7 @@ const Popular = () => {
                             <div className="card-body">
                                 <h5 className="card-title">Alagar Kovil</h5>
                                 <p className="card-text">
-                                    Situated on a hill in a panoramic backdrop, a popular destination
+                                    Situated on a hill ,a popular destination
                                     in Madurai.
                                 </p>
                                 <a
@@ -42,8 +63,7 @@ const Popular = () => {
                             <div className="card-body">
                                 <h5 className="card-title">World Heritage Sites</h5>
                                 <p className="card-text">
-                                    Explore the world's heritage sites that have stood the test of
-                                    time.
+                                    Explore the world's heritage sites 
                                 </p>
                                 <a
                                     href="#"
@@ -98,27 +118,7 @@ const Popular = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6 mb-4">
-                        <div className="card">
-                            <img
-                                src="/images/ooty-1655457424_bca80f81e8391ebdaaca.webp"
-                                className="card-img-top"
-                                alt="Ooty"
-                            />
-                            <div className="card-body">
-                                <h5 className="card-title">Ooty</h5>
-                                <p className="card-text">
-                                    Experience the beauty of Ooty's hills and tea estates.
-                                </p>
-                                <a
-                                    href="#"
-                                    className="btn btn-primary"
-                                >
-                                    Read more
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div className="col-lg-4 col-md-6 mb-4">
                         <div className="card">
                             <img
