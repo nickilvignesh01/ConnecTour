@@ -1,4 +1,4 @@
-// App.js
+// src/App.js
 import './App.css';
 import './Style.css';
 import React from 'react';
@@ -23,6 +23,8 @@ import Logout from './pages/Logout';
 import PlaceDetails from './components/PlaceDetails'; 
 import AddForm from './components/AddForm'; 
 import PlaceDescription from './components/PlaceDescription';
+import AdminAddPlace from './components/AdminAddPlace';
+import Requests from './components/Requests'; // Ensure this path is correct
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
@@ -53,6 +55,8 @@ function App() {
             <Route path="/maps" element={<Maps />} />
             <Route path="/googlesignin" element={<GoogleSignIn />} />
             <Route path="/admin" element={<AdminHome />} />
+            <Route path="/admin/requests" element={<Requests />} /> {/* Correctly routing to Requests */}
+            <Route path="/admin/add-place" element={<AdminAddPlace />} />
             <Route path="/logout" element={<Logout />} />
           </Routes>
         </GoogleOAuthProvider>

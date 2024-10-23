@@ -15,9 +15,10 @@ const WriteExperience = () => {
     // Fetch user details on component mount
     useEffect(() => {
         const userEmail = localStorage.getItem('userEmail');
-
+    
         if (userEmail) {
-            // Fetch user details from backend
+            // Log the user email
+            console.log('Fetching user data for email:', userEmail);
             axios.get(`http://localhost:3001/api/users/${userEmail}`)
                 .then((response) => {
                     const user = response.data;
@@ -25,14 +26,18 @@ const WriteExperience = () => {
                     setEmail(user.email); // Set user's email
                 })
                 .catch((error) => {
-                    console.error('Error fetching user data:', error);
+                    console.error('Error fetching user data:', error.response ? error.response.data : error.message);
+                    // Optionally redirect to login if user is not found
+                    if (error.response?.status === 404) {
+                        alert('User not found. Redirecting to login...');
+                        navigate('/login');
+                    }
                 });
         } else {
-            // If no userEmail is found in localStorage, redirect to login
             navigate('/login');
         }
     }, [navigate]);
-
+    
     const handleImageUpload = (event) => {
         setImage(event.target.files[0]);
     };

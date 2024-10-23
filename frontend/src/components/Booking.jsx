@@ -15,16 +15,19 @@ const Booking = () => {
 
   const [message, setMessage] = useState('');
 
-  // Populate form fields from local storage on component mount
+ 
   useEffect(() => {
-    const storedName = localStorage.getItem('userName'); // Use 'userName' key
-    const storedEmail = localStorage.getItem('userEmail'); // Use 'userEmail' key
+    const storedName = localStorage.getItem('userName'); // Retrieve 'userName'
+    const storedEmail = localStorage.getItem('userEmail'); // Retrieve 'userEmail'
+    
     if (storedName && storedEmail) {
       setFormData((prevData) => ({
         ...prevData,
-        name: storedName,
+       
         email: storedEmail,
       }));
+    } else {
+      
     }
   }, []);
 

@@ -32,7 +32,7 @@ const Experiences = () => {
             views, nestled in the hills of Madurai.
           </p>
           <a
-            href="#"
+            href="/place-details/671956bdf5fa547311078491"
             className="btn btn-primary"
             style={{ borderRadius: 5, padding: "10px 20px" }}
           >
@@ -64,7 +64,7 @@ const Experiences = () => {
             essence of the region's culinary heritage.
           </p>
           <a
-            href="#"
+            href="/place-details/605c72ef1b7e3b4c0e8b4567"
             className="btn btn-primary"
             style={{ borderRadius: 5, padding: "10px 20px" }}
           >
@@ -96,7 +96,7 @@ const Experiences = () => {
             into the region's rich cultural and spiritual traditions.
           </p>
           <a
-            href="#"
+            href="/place-details/67195699f5fa54731107848b"
             className="btn btn-primary"
             style={{ borderRadius: 5, padding: "10px 20px" }}
           >
@@ -129,7 +129,7 @@ const Experiences = () => {
             significance.
           </p>
           <a
-            href="#"
+            href="/place-details/671956b2f5fa54731107848f"
             className="btn btn-primary"
             style={{ borderRadius: 5, padding: "10px 20px" }}
           >

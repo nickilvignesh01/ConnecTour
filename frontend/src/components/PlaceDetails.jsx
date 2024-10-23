@@ -60,32 +60,13 @@ const PlaceDetails = () => {
                                         <img src={hotel.src} alt={hotel.title} className="grid-image" />
                                         <h3>{hotel.title}</h3>
                                         <p className="item-description">{hotel.description}</p>
-                                        <a href={hotel.locationUrl} target="_blank" rel="noopener noreferrer">View on Map</a>
+                                        <a href={hotel.locationUrl} target="_blank" rel="noopener noreferrer">
+                                            <button className="view-map-button">View on Map</button>
+                                        </a>
                                     </div>
                                 ))
                             ) : (
                                 <p>No hotels available.</p>
-                            )}
-                        </div>
-                    </div>
-                </div>
-
-                {/* Guides Section */}
-                <div className="section">
-                    <h2>Guides</h2>
-                    <div className="scroll-container">
-                        <div className="scroll-grid">
-                            {place.guides.length > 0 ? (
-                                place.guides.map(guide => (
-                                    <div className="scroll-item" key={guide._id.$oid}>
-                                        <img src={guide.src} alt={guide.title} className="grid-image" />
-                                        <h3>{guide.title}</h3>
-                                        <p className="item-description">{guide.description}</p>
-                                        <a href={guide.locationUrl} target="_blank" rel="noopener noreferrer">View on Map</a>
-                                    </div>
-                                ))
-                            ) : (
-                                <p>No guides available.</p>
                             )}
                         </div>
                     </div>
@@ -102,7 +83,9 @@ const PlaceDetails = () => {
                                         <img src={food.src} alt={food.title} className="grid-image" />
                                         <h3>{food.title}</h3>
                                         <p className="item-description">{food.description}</p>
-                                        <a href={food.locationUrl} target="_blank" rel="noopener noreferrer">View on Map</a>
+                                        <a href={food.locationUrl} target="_blank" rel="noopener noreferrer">
+                                            <button className="view-map-button">View on Map</button>
+                                        </a>
                                     </div>
                                 ))
                             ) : (
@@ -123,7 +106,9 @@ const PlaceDetails = () => {
                                         <img src={hiddenPlace.src} alt={hiddenPlace.title} className="grid-image" />
                                         <h3>{hiddenPlace.title}</h3>
                                         <p className="item-description">{hiddenPlace.description}</p>
-                                        <a href={hiddenPlace.locationUrl} target="_blank" rel="noopener noreferrer">View on Map</a>
+                                        <a href={hiddenPlace.locationUrl} target="_blank" rel="noopener noreferrer">
+                                            <button className="view-map-button">View on Map</button>
+                                        </a>
                                     </div>
                                 ))
                             ) : (
@@ -133,8 +118,35 @@ const PlaceDetails = () => {
                     </div>
                 </div>
 
+                {/* Guides Section */}
+                <div className="section">
+                    <h2>Guides</h2>
+                    <div className="scroll-container">
+                        <div className="scroll-grid">
+                            {place.guides.length > 0 ? (
+                                place.guides.map(guide => (
+                                    <div className="scroll-item" key={guide._id.$oid}>
+                                        <img src={guide.src} alt={guide.title} className="grid-image" />
+                                        <h3>{guide.title}</h3>
+                                        <p className="item-description">{guide.description}</p>
+                                        <a href={guide.locationUrl} target="_blank" rel="noopener noreferrer">
+                                            <button className="view-map-button">View on Map</button>
+                                        </a>
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No guides available.</p>
+                            )}
+                        </div>
+                    </div>
+                </div>
+
+                <p className="add-description">
+                    Join us by adding your hotels, hidden places you know, list yourself as a local guide, or share your favorite local foods!
+                </p>
+
                 {/* Button to Add New Item */}
-                <button className="add-button" onClick={handleAddClick}>Add New Item</button>
+                <button className="add-button" onClick={handleAddClick}>Add New</button>
             </div>
         </div>
     );

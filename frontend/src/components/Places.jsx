@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Slider from "../components/Slider"; // Import the Slider component
 
 const MyStyledDiv = () => {
     return (
@@ -64,6 +65,19 @@ const Places = () => {
         fetchPlaces();
     }, []);
 
+    // Hardcoded places from code 2
+    const hardcodedPlaces = [
+       
+        { src: "/images/kanyakumari-1654195435_bab3b5c9e1fc90ab56a8.webp", alt: "Kanniakumari", title: "Kanniyakumari" },
+        { src: "/images/kodaikanal.jpeg", alt: "Kodaikanal", title: "Kodaikanal" },
+        { src: "/images/kanchi.jpeg", alt: "Kancheepuram", title: "Kancheepuram" },
+        { src: "/images/chennai.jpeg", alt: "Mahabalipuram", title: "Mahabalipuram" },
+        { src: "/images/mad.jpeg", alt: "Madurai", title: "Madurai" },
+        { src: "/images/vela.jpeg", alt: "Velankanni", title: "Velankanni" },
+        { src: "/images/rameswaram-1657003415_923d56f8f2fe1ac0f94a.webp", alt: "Rameswaram", title: "Rameswaram" },
+       
+    ];
+
     const styles = {
         container: {
             padding: '20px',
@@ -89,7 +103,7 @@ const Places = () => {
         },
         heading: {
             textAlign: 'center',
-            padding: '50px 0', // Adjusted to separate the heading from the image
+            padding: '50px 0',
             fontSize: '2.5rem',
             color: '#333',
         },
@@ -103,17 +117,18 @@ const Places = () => {
     return (
         <div style={styles.container}>
             <MyStyledDiv />
-            <h1 style={styles.heading}>Explore Our Destinations</h1> {/* Heading aligned below the image */}
+            <h1 style={styles.heading}>Explore Our Destinations</h1>
             <div style={styles.grid}>
-                {places.map((place) => (
-                    <div key={place._id} style={styles.placeItem}>
-                        <Link to={`/place-details/${place._id}`}>
+                {places.concat(hardcodedPlaces).map((place, index) => (
+                    <div key={index} style={styles.placeItem}>
+                        <Link to={`/place-details/${place._id || index}`}>
                             <img src={place.src} alt={place.alt} style={styles.placeImage} />
                             <h2 style={styles.placeTitle}>{place.title}</h2>
                         </Link>
                     </div>
                 ))}
             </div>
+            <Slider />
         </div>
     );
 };

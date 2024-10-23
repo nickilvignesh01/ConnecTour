@@ -5,6 +5,7 @@ import '../RevStyle.css';
 
 const Diaries = () => {
     const [experiences, setExperiences] = useState([]);
+    const [showLoginReminder, setShowLoginReminder] = useState(false); // State to control popup visibility
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,12 +27,11 @@ const Diaries = () => {
             // User is logged in, navigate to the WriteExperience page
             navigate('/write-experience');
         } else {
-            // User is not logged in, navigate to the login page
-            navigate('/login');
+            // User is not logged in, show login reminder popup
+            setShowLoginReminder(true);
         }
     };
-    
-    
+
     return (
         <div className="diaries-container">
             <h2 className="diaries-title">Traveler Diaries</h2>
@@ -69,9 +69,33 @@ const Diaries = () => {
                     zIndex: -1,
                 }}
             ></div>
-            <button className="submit-experience-btn" onClick={handleShareExperience}>
-                Share Your Experience
-            </button>
+           <button className="submit-experience-btn" onClick={handleShareExperience}>
+    Share Your Experience
+</button>
+
+{/* Conditionally render the login reminder popup */}
+{showLoginReminder && (
+    <div className="login-reminder-popup">
+        Please log in to share your experience.
+        <button 
+            className="login-popup-btn"
+            onClick={() => navigate('/login')}  // Redirect to login page
+            style={{
+                backgroundColor: '#ff4102', 
+                color: 'white',
+                border: 'none', 
+                padding: '10px', 
+                borderRadius: '5px',
+                marginTop: '10px',
+                cursor: 'pointer'
+            }}
+        >
+            Login
+        </button>
+    </div>
+)}
+
+            )
         </div>
     );
 };

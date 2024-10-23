@@ -45,7 +45,7 @@ const Popular = () => {
                                     in Madurai.
                                 </p>
                                 <a
-                                    href="#"
+                                    href="/place-details/67195699f5fa54731107848b"
                                     className="btn btn-primary"
                                 >
                                     Read more
@@ -56,17 +56,17 @@ const Popular = () => {
                     <div className="col-lg-4 col-md-6 mb-4">
                         <div className="card">
                             <img
-                                src="/images/world-heritage-sites-1655143670_a557d11ac840b3cde674.webp"
+                                src="/images/coimba.jpeg"
                                 className="card-img-top"
                                 alt="World Heritage Sites"
                             />
                             <div className="card-body">
-                                <h5 className="card-title">World Heritage Sites</h5>
+                                <h5 className="card-title">coimbatore</h5>
                                 <p className="card-text">
-                                    Explore the world's heritage sites 
+                                    Explore beauty of coimbatore 
                                 </p>
                                 <a
-                                    href="#"
+                                    href="/place-details/671956a4f5fa54731107848d"
                                     className="btn btn-primary"
                                 >
                                     Read more
@@ -88,7 +88,7 @@ const Popular = () => {
                                     Heritage site.
                                 </p>
                                 <a
-                                    href="#"
+                                    href="/place-details/671956b2f5fa54731107848f"
                                     className="btn btn-primary"
                                 >
                                     Read more
@@ -110,7 +110,7 @@ const Popular = () => {
                                     Dharmapuri.
                                 </p>
                                 <a
-                                    href="#"
+                                    href="/place-details/671956bdf5fa547311078491"
                                     className="btn btn-primary"
                                 >
                                     Read more
@@ -122,17 +122,17 @@ const Popular = () => {
                     <div className="col-lg-4 col-md-6 mb-4">
                         <div className="card">
                             <img
-                                src="/images/waterfalls-1655142703_c9bb5f0fe1eb890f6a76.webp"
+                                src="/images/ch.jpeg"
                                 className="card-img-top"
                                 alt="Waterfalls"
                             />
                             <div className="card-body">
-                                <h5 className="card-title">Waterfalls</h5>
+                                <h5 className="card-title">chennai</h5>
                                 <p className="card-text">
-                                    Discover breathtaking waterfalls and natural wonders.
+                                    Discover metropolitan chennai beaches,malls,temples.
                                 </p>
                                 <a
-                                    href="#"
+                                    href="/place-details/671956dff5fa547311078493"
                                     className="btn btn-primary"
                                 >
                                     Read more

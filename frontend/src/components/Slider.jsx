@@ -17,7 +17,7 @@ const Slider = () => {
         slide.style.display = 'none';
         slide.style.opacity = 0;
       });
-
+ 
       if (slideIndex > slides.length) setSlideIndex(1);
       if (slideIndex < 1) setSlideIndex(slides.length);
 
